@@ -42,3 +42,60 @@
 */
 
 //TODO: #21 output money should in decimal format (eg. 120,200,340.42).
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Employee {
+    char name[100];
+    float salary;
+    int duration;
+};
+
+int main() {
+    struct Employee employees[100];
+    int employeeCount = 0;
+
+    while (1) {
+        char addEmployee;
+        printf("Do you want to Enter Employee Information? (y/n): ");
+        scanf(" %c", &addEmployee);
+
+        if (addEmployee != 'y') {
+            break;
+        }
+
+        printf("Employee Name: ");
+        scanf("%s", employees[employeeCount].name);
+        printf("Salary (Bath/Month): ");
+        scanf("%f", &employees[employeeCount].salary);
+        printf("Duration (Year): ");
+        scanf("%d", &employees[employeeCount].duration);
+        
+        employeeCount++;
+    }
+
+    float totalSalary = 0;
+    for (int i = 0; i < employeeCount; i++) {
+        totalSalary += employees[i].salary;
+    }
+    float averageSalary = totalSalary / employeeCount;
+    float totalPayment = totalSalary;
+
+    printf("Average of Salary: %.2f Bath\n", averageSalary);
+    printf("Payment of every month: %.2f Bath\n", totalPayment);
+    printf("----------------------------------------\n");
+
+    struct Employee mostExperiencedEmployee = employees[0];
+    for (int i = 1; i < employeeCount; i++) {
+        if (employees[i].duration > mostExperiencedEmployee.duration) {
+            mostExperiencedEmployee = employees[i];
+        }
+    }
+
+    printf("** Most duration in this business **\n");
+    printf("Name: %s (%d Years)\n", mostExperiencedEmployee.name, mostExperiencedEmployee.duration);
+    printf("Salary: %.2f Bath\n", mostExperiencedEmployee.salary);
+
+    return 0;
+}
